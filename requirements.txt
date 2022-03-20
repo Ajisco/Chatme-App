@@ -184,7 +184,6 @@ sphinxcontrib-websupport==1.1.0
 spyder-kernels==0.3.0
 SQLAlchemy==1.2.15
 sqlparse==0.4.2
-statsmodels==0.9.0
 sympy==1.3
 tables==3.4.4
 tblib==1.3.2
