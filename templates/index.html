@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>CHATME</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{%static 'assets/css/main.css'%}" />
+		{% if user.is_authenticated %}
+		<link rel="stylesheet" href="{%static 'assets/css/room.css'%}" />
+		{% endif %}
+		<link  rel="icon" href="{%static 'images/icon.png'%}" />
+		
+	</head>
+	<body class="landing is-preload" style="background-color:rgb(18, 13, 44);">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">CHATME</a> by <a href="https://github.com/Ajisco">Ajisco</a></h1>
+					<nav id="nav">
+						<ul>
+							
+							
+							{% if user.is_authenticated %}
+							<li><a href="logout" class="button">Sign Out</a></li>
+							{% else %}
+							<li><a href="register" class="button">Log In or Sign Up</a></li>
+							{% endif %}
+							<li><a href="#footer" >Contact Creator</a></li>
+							<li><ul class="icons">
+								<li><a href="https://twitter.com/Dayo_Ajisco" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="https://www.facebook.com/ajibade.abdulqudus.7" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="https://github.com/Ajisco" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="https://www.linkedin.com/in/ajibade-abdulquddus-ab5237159" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+								<li><a href="ajiscomorac@gmail.com" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+								<li><a href="https://www.instagram.com/dayo_ajisco" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="https://wa.me/+2349030987312" class="icon brands fa-whatsapp"><span class="label">Whatsapp</span></a></li></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+			{% if user.is_authenticated %}
+			<section id="banner" style="max-width: 100%;">
+				
+					<h2>Welcome {{user.username}}</h2>
+					<p>  Join a chatroom or create new one  .</p>
+					
+					
+				</section>
+
+
+				<center><div class="container">
+					<style>
+					input[type=text], select {
+					width: 100%;
+					padding: 12px 20px;
+					margin: 8px 0;
+					display: inline-block;
+					border: 1px solid #ccc;
+					border-radius: 4px;
+					box-sizing: border-box;
+					}
+				
+					input[type=submit] {
+					width: 100%;
+					background-color: #4CAF50;
+					color: white;
+					padding: 14px 20px;
+					margin: 8px 0;
+					border: none;
+					border-radius: 4px;
+					cursor: pointer;
+					padding-top: 0px;
+					}
+				
+					input[type=submit]:hover {
+					background-color: #45a049;
+					}
+				
+					div {
+					border-radius: 5px;
+					background-color: #f2f2f2;
+					</style>
+				
+				
+					<form id="post-form" method="POST" action="checkview">
+						{% csrf_token %}
+						<center><label><b>Room Name</b> (Create or Join room)</label></center>
+						<input type="text" name="room_name" id="room_name" width="100px"  required oninvalid="this.setCustomValidity('Input a room name')" oninput="this.setCustomValidity('')" />
+						<!--<label><b>Username</b>(This appears in the chatroom)</label>
+						<input type="text" name="username" id="username" width="100px"  required oninvalid="this.setCustomValidity('Input a Username')" oninput="this.setCustomValidity('')" />-->
+						<input type="hidden" name="username" id="username" value="{{user.username}}"/>
+						<input type="submit" value="Enter Room">
+					</form>
+					
+				</div></center>
+
+				{% else %}
+				<section id="banner">
+					
+					
+					<h2>CHATME &copy;</h2>
+					<p> Enjoy the best chatting experience</p>
+					<ul class="actions special">
+						<li><a href="register" class="button primary">Sign Up</a></li>
+						<li><a href="login" class="button">Log In</a></li>
+					</ul>
+					
+				</section>
+
+			<!-- Main -->
+				<section id="main" class="container">
+
+					
+
+					<section class="box special features">
+						<div class="features-row">
+							<section>
+								<span class="icon solid major fa-bolt accent2"></span>
+								<h3>Urgent Meetings</h3>
+								<p>The app allows new rooms to be created for urgent use. It allows participants to join as much as possible. The messages are protected.</p>
+							</section>
+							<section>
+								<span class="icon solid major fa-chart-area accent3"></span>
+								<h3>Classes/ Mentorship</h3>
+								<p>CHATME can be used to organise classes, meetings and mentorship programmes. Personal and group discussions are also readily available.</p>
+							</section>
+						</div>
+						<div class="features-row">
+							<section>
+								<span class="icon solid major fa-cloud accent4"></span>
+								<h3>Cloud Storage</h3>
+								<p>Improvistion of the app can be in form of storage means. Vital informations can be stored in a room created just for yourself alone.</p>
+							</section>
+							<section>
+								<span class="icon solid major fa-lock accent5"></span>
+								<h3>Security</h3>
+								<p>Chats, information, et cetera are protected as much as possible. There is user flexibilty at maximum.</p>
+							</section>
+						</div>
+					</section>
+
+					<div class="row">
+						<div class="col-6 col-12-narrower">
+
+							<section class="box special">
+								<span class="image featured"><img src="{%static 'images/chat.jpg'%}" alt="" /></span>
+								<h2>About CHATME v1.01</h2><br>
+								<p> This is the first version of <b>CHATME</b> Chatting application built using Django and frontend frameworks. It has wide usage as mentioned above. <br> The application works with the database created and users information are well stored in bthe database. <br> The app is also easy to use as it contain few and user-friendly instructions.<br> More features will be added in subsequent versions.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/Ajisco" class="button alt">Learn More</a></li>
+								</ul>
+							</section>
+
+						</div>
+						<div class="col-6 col-12-narrower" id="creator">
+
+<section class="box special">
+	<span class="image featured"><img src="{%static 'images/me.jpg'%}" alt="" /></span>
+	<h2>About the Creator </h2><br>
+	<h4>Hi! I'm Ajibade Abdulquddus A.</h4>
+										<p>I'm a Python Developer, a Data Scientist 🕵🏽‍♂️ and a dedicated goal-setter with great interest in problem solving with Data Science, Software Development, Research and Innovation.
+											I have built and published different Softwares and ML Models that solve different problems. You can check out my projects <a href="https://github.com/Ajisco">Here. </a>
+										You can also connect with me on any of my <a href="#footer">social media handles</a> . 
+										</p>
+									
+	<ul class="actions special">
+		<li><a href="https://github.com/Ajisco" class="button alt">Learn More</a></li>
+	</ul>
+</section>
+
+</div>
+						
+					</div>
+
+				</section>
+
+		
+				{% endif %}
+			<!-- Footer -->
+				<footer id="footer" class= "footer">
+					<ul class="icons">
+						<li><a href="https://twitter.com/Dayo_Ajisco" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/ajibade.abdulqudus.7" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="https://github.com/Ajisco" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="https://www.linkedin.com/in/ajibade-abdulquddus-ab5237159" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						<li><a href="ajiscomorac@gmail.com" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+						<li><a href="https://www.instagram.com/dayo_ajisco" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="https://wa.me/+2349030987312" class="icon brands fa-whatsapp"><span class="label">Whatsapp</span></a></li>
+					</ul>
+				<!-- Copyright -->
+					<div class="copyright">
+						<ul class="menu">
+							<li>&copy;  <a href="https://github.com/Ajisco">Ajisco.</a> All rights reserved</li>
+						</ul>
+					</div>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{%static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{%static 'assets/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{%static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{%static 'assets/js/browser.min.js' %}"></script>
+			<script src="{%static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{%static 'assets/js/util.js' %}"></script>
+			<script src="{%static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

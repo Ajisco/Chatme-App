@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+        <title>{{room}} room</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="{%static 'assets/css/main.css'%}" />
+<link  rel="icon" href="{%static 'images/icon.png'%}" />
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+<body style="background-color:rgb(41, 16, 54);  margin: 0 auto;
+max-width: 800px;
+padding: 0 20px;" class="landing is-preload" >
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="index.html">CHATME</a> by <a href="https://github.com/Ajisco">Ajisco</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							
+							{% if user.is_authenticated %}
+							<li><a href="/logout" class="button">Sign Out</a></li>
+							{% else %}
+							<li><a href="/register" class="button">Log In or Sign Up</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+				</header>
+				{% if user.is_authenticated %}
+				{% if username is not None %}
+			<section id="banner">
+					<h2>{{username}} in {{room}} room </h2>
+				</section>
+					
+		
+
+<div id="display" style="display:flex; flex-direction: column; width: 100%;">
+	
+
+</div>
+
+<script>
+	var username =  "{{username}}"
+$(document).ready(function(){
+
+setInterval(function(){
+    $.ajax({
+        type: 'GET',
+        url : "/getMessages/{{room}}/",
+        success: function(response){
+           console.log(response);
+            $("#display").empty();
+            for (var key in response.messages)
+            {
+				if(response.messages[key].user == username )
+				{
+					var temp="<div style=' border: 2px solid #dedede;  background-color: green; color: white;  border-radius: 5px; align-self: flex-end;text-overflow: ellipsis; text-align: left; white-space:pre-wrap; word-wrap: break-word; border-color: #ccc; margin: 10px 0; width:70%' >( "+response.messages[key].user+"  )<br><br><p style = 'background-color:white; color:black; border: 1px solid #ccc; border-radius: 4px;'>"+response.messages[key].value+"</p><span class='time-left' >"+response.messages[key].date+"</span></div>";
+                $("#display").append(temp);	
+
+			    }
+                else{
+					var temp="<div style=' border: 2px solid #dedede;  background-color: #ddd; color: black; border-radius: 5px; align-self: text-overflow: ellipsis; word-wrap: break-word; white-space:pre-wrap; flex-start; text-align: left;  padding: 5px 10px; border-color: #ccc; margin: 10px 0; width:70%'><b>( "+response.messages[key].user+" )</b><br><br><p style = 'background-color:white; color:black; border: 1px solid #ccc; border-radius: 4px;'>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                $("#display").append(temp);	
+				}
+            }
+        },
+                error: function(response){
+            alert('An error occured')
+        }
+    });
+},1000);
+})
+</script>
+
+
+<div class="container">
+    <style>
+    textarea[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+	cursor: pointer;
+	padding-top: 0px;
+    }
+
+    input[type=submit]:hover {
+    background-color: #45a049;
+    }
+
+    div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    }
+    </style>
+
+    <form id="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}"/>
+        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+        <textarea style="resize:none;" type="text" name="message" id="message"  required oninvalid="this.setCustomValidity('Type in your message here')" oninput="this.setCustomValidity('')" ></textarea>
+        <input type="submit" value="Send">  
+    </form>
+</div>
+</div>
+{% else %}
+<section id="banner">
+					
+					
+		<h2>CHATME</h2>
+		<p>Create Account or Log In to Join or Create a Chat Room</p>
+		<ul class="actions special">
+			<li><a href="/register" class="button primary">Sign Up</a></li>
+			<li><a href="/login" class="button">Log In</a></li>
+		</ul>
+		
+	</section>
+	{% endif %}
+{% else %}
+<section id="banner">
+					
+					
+		<h2>CHATME</h2>
+		<p>Create Account or Log In to Join or Create a Chat Room</p>
+		<ul class="actions special">
+			<li><a href="/register" class="button primary">Sign Up</a></li>
+			<li><a href="/login" class="button">Log In</a></li>
+		</ul>
+		
+	</section>
+{% endif %}
+</body>
+
+<script type="text/javascript">
+  $(document).on('submit','#post-form',function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url:'/send',
+      data:{
+          username:$('#username').val(),
+          room_id:$('#room_id').val(),
+          message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function(data){
+         alert(data)
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+</script>
+<script src="{%static 'assets/js/jquery.min.js' %}"></script>
+<script src="{%static 'assets/js/jquery.dropotron.min.js' %}"></script>
+<script src="{%static 'assets/js/jquery.scrollex.min.js' %}"></script>
+<script src="{%static 'assets/js/browser.min.js' %}"></script>
+<script src="{%static 'assets/js/breakpoints.min.js' %}"></script>
+<script src="{%static 'assets/js/util.js' %}"></script>
+<script src="{%static 'assets/js/main.js' %}"></script>
+
+</html>
