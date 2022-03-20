@@ -162,10 +162,8 @@ qtconsole==4.4.3
 QtPy==1.5.2
 requests==2.27.1
 rope==0.11.0
-ruamel-yaml==0.15.46
 
-scipy==1.1.0
-seaborn==0.9.0
+
 Send2Trash==1.5.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
@@ -182,7 +180,7 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 sphinxcontrib-websupport==1.1.0
-spyder==3.3.2
+
 spyder-kernels==0.3.0
 SQLAlchemy==1.2.15
 sqlparse==0.4.2
