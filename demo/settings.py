@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9^!@!uv7q$9act_z*11lt8)h1m$yr)o+@z^4ebvu7k9epq+c7!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['my-chatme.herokuapp.com']
 
 
 # Application definition
