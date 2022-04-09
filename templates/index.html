@@ -1,12 +1,33 @@
 {% load static %}
 <!DOCTYPE HTML>
 
-<html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
 	<head>
 		<title>CHATME</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{%static 'assets/css/main.css'%}" />
+		<meta 
+  property="og:title"
+  content="Example Title" 
+/>
+<meta 
+  name="image" 
+  property="og:image" 
+  content="%PUBLIC_URL%/static/images/icon.png" 
+/>
+<meta 
+  name="author" 
+  content="Ajibade Abdulquddus" 
+/>
+<meta 
+  property=”og:description” 
+  content="Chatme Chat app"
+/>
+<meta 
+  property="og:url" 
+  content="https://my-chatme.herokuapp.com" 
+/>
+                <link rel="stylesheet" href="{%static 'assets/css/main.css'%}" />
 		{% if user.is_authenticated %}
 		<link rel="stylesheet" href="{%static 'assets/css/room.css'%}" />
 		{% endif %}
